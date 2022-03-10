@@ -1,173 +1,44 @@
 package com.example.foodmap;
 
-import android.graphics.PointF;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import android.support.v7.app.AppCompatActivity;
-import android.support.annotation.NonNull;
-
-import com.naver.maps.geometry.LatLng;
-import com.naver.maps.map.CameraPosition;
-import com.naver.maps.map.MapView;
-import com.naver.maps.map.NaverMap;
-import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.overlay.Marker;
-import com.naver.maps.map.overlay.Overlay;
-import com.naver.maps.map.overlay.OverlayImage;
 
 
 
-
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback
+public class MainActivity extends AppCompatActivity
 {
-    private MapView mapView;
-    private static NaverMap naverMap;
 
-    //마커 변수 선언 및 초기화
-    private Marker marker1 = new Marker();
-    private Marker marker2 = new Marker();
-    private Marker marker3 = new Marker();
-
+    EditText username, password;
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) { //찾는 작업은 oncreate에서 하여라
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Button btnMark1 = (Button) findViewById(R.id.btnmark1);
-        Button btnMark2 = (Button) findViewById(R.id.btnmark2);
-        Button btnMark3 = (Button) findViewById(R.id.btnmark3);
-
-        btnMark1.setOnClickListener(new Button.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                setMarker(marker1, 33.2712, 126.5354, R.drawable.ic_baseline_place_24, 0);
-
-                marker1.setOnClickListener(new Overlay.OnClickListener() {
-                    @Override
-                    public boolean onClick(@NonNull Overlay overlay)
-                    {
-                        Toast.makeText(getApplication(), "마커1 클릭", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                });
+        setContentView(R.layout.activity_login);
+        //findViewById(); ()안에 xml문서에서 찾아오고 싶은 view이름을 주면 자바코드에서 찾아옴
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
+    }
+    //event 처리 메소드
+    public void loginProcess(View v) {
+        //v: event가 발생한 대상
+        int id = v.getId();
+        if (id == R.id.login) {
+            String uid = username.getText().toString();
+            String upass = password.getText().toString();
+            if (uid.equals("admin") && upass.equals("manager")) {
+                Toast.makeText(this, " " + uid, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "로그인 정보가 틀렸습니다", Toast.LENGTH_SHORT).show();
+                username.setText(""); //지워주는 효과
+                password.setText("");
             }
-        });
-
-        btnMark2.setOnClickListener(new Button.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                setMarker(marker2, 33.49957, 126.531076, R.drawable.ic_baseline_place_24, 10);
-            }
-        });
-
-        btnMark3.setOnClickListener(new Button.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                setMarker(marker3, 33.49957, 126.531128, R.drawable.ic_baseline_place_24, 0);
-            }
-        });
-
-
-        //네이버 지도
-        mapView = (MapView) findViewById(R.id.map_view);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
-    }
-
-    private void setMarker(Marker marker,  double lat, double lng, int resourceID, int zIndex)
-    {
-        //원근감 표시
-        marker.setIconPerspectiveEnabled(true);
-        //아이콘 지정
-        marker.setIcon(OverlayImage.fromResource(resourceID));
-        //마커의 투명도
-        marker.setAlpha(0.8f);
-        //마커 위치
-        marker.setPosition(new LatLng(lat, lng));
-        //마커 우선순위
-        marker.setZIndex(zIndex);
-        //마커 표시
-        marker.setMap(naverMap);
-    }
-
-
-    @Override
-    public void onMapReady(@NonNull NaverMap naverMap)
-    {
-        this.naverMap = naverMap;
-
-        //배경 지도 선택
-        naverMap.setMapType(NaverMap.MapType.Navi);
-
-        //건물 표시
-        naverMap.setLayerGroupEnabled(naverMap.LAYER_GROUP_BUILDING, true);
-
-        //위치 및 각도 조정
-        CameraPosition cameraPosition = new CameraPosition(
-                new LatLng(33.38, 126.55),   // 위치 지정
-                9,                                     // 줌 레벨
-                45,                                       // 기울임 각도
-                0                                     // 방향
-        );
-        naverMap.setCameraPosition(cameraPosition);
-    }
-
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        mapView.onStart();
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        mapView.onPause();
-    }
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        mapView.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onLowMemory()
-    {
-        super.onLowMemory();
-        mapView.onLowMemory();
+        } else {
+            username.setText(""); //지워주는 효과
+            password.setText("");
+        }
     }
 }
+
