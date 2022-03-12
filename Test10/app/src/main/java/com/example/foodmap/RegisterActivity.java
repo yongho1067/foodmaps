@@ -2,6 +2,7 @@ package com.example.foodmap;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,11 +39,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         //아이디 중복 체크
         check_button = findViewById(R.id.check_button);
+
         check_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 String UserEmail = join_email.getText().toString();
+                Log.v("test","UserEmail");
                 if (validate) {
                     return; //검증 완료
                 }
@@ -58,10 +61,10 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-
+                            Log.v("test",response);
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
-
+                            Log.v("test","통신테스트try");
                             if (success) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 dialog = builder.setMessage("사용할 수 있는 아이디입니다.").setPositiveButton("확인", null).create();
@@ -77,7 +80,9 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.v("test","통신테스트catch");
                         }
+                        Log.v("test","통신테스트final");
                     }
                 };
                 ValidateRequest validateRequest = new ValidateRequest(UserEmail, responseListener);
@@ -88,8 +93,9 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-        //회원가입 버튼 클릭 시 수행
-        join_button = findViewById( R.id.join_button );
+            //회원가입 버튼 클릭 시 수행
+            join_button = findViewById(R.id.join_button);
+
         join_button.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 if (success) {
 
                                     Toast.makeText(getApplicationContext(), String.format("%s님 가입을 환영합니다.", UserName), Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                                     startActivity(intent);
 
                                     //회원가입 실패시
@@ -156,5 +162,6 @@ public class RegisterActivity extends AppCompatActivity {
                 queue.add( registerRequest );
             }
         });
-    }
+
+        }
 }
