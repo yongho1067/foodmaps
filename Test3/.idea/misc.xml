@@ -3,7 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/MygitRepo/foodmap/Test3/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/user/MygitRepo/foodmap/Test3/app/src/main/res/drawable/ic_baseline_place_24.xml" value="0.1" />
+        <entry key="..\:/Users/user/MygitRepo/foodmap/Test3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/user/MygitRepo/foodmap/Test3/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1214859437751004" />
+        <entry key="..\:/Users/user/MygitRepo/foodmap/Test3/app/src/main/res/layout-w936dp/activity_login.xml" value="0.152734375" />
+        <entry key="..\:/Users/user/MygitRepo/foodmap/Test3/app/src/main/res/layout/activity_join.xml" value="0.33" />
+        <entry key="..\:/Users/user/MygitRepo/foodmap/Test3/app/src/main/res/layout/activity_login.xml" value="0.20364583333333333" />
         <entry key="..\:/Users/user/MygitRepo/foodmap/Test3/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/user/MygitRepo/foodmap/Test3/app/src/main/res/layout/fragment_naver.xml" value="0.1" />
       </map>
     </option>
   </component>
